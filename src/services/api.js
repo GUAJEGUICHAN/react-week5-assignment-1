@@ -36,7 +36,8 @@ const apiCache = new Cache({ ttl = 1 });
 * Cached api
 */
 async function fetchAPI(url, next) {
-  return fetch(url).then(v => v.json());
+  let res = apiCache.get(url);
+  return res || (res = fetch(url).then(v => v.json()));
 }
 
 function refreshAPI() {
